@@ -8,43 +8,43 @@ use Illuminate\Http\Request;
 class DriverController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Получить всех водителей.
      */
-    public function index()
+    public function index() : \Illuminate\Database\Eloquent\Collection
     {
         return Driver::getAllDrivers();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Сохранить нового водителя.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $driver = Driver::createDriver($request->all());
         return response()->json($driver, 201);
     }
 
     /**
-     * Display the specified resource.
+     * Показать данные конкретного водителя.
      */
-    public function show(Driver $driver)
+    public function show(Driver $driver): Driver
     {
         return $driver;
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновить данные водителя.
      */
-    public function update(Request $request, Driver $driver)
+    public function update(Request $request, Driver $driver): \Illuminate\Http\JsonResponse
     {
         $driver->updateDriver($request->all());
         return response()->json($driver, 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удалить водителя.
      */
-    public function destroy(Driver $driver)
+    public function destroy(Driver $driver): \Illuminate\Http\JsonResponse
     {
         $driver->deleteDriver();
         return response()->json(null, 204);

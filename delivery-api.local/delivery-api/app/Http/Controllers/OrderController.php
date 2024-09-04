@@ -8,43 +8,43 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Получить список всех заказов.
      */
-    public function index()
+    public function index(): \Illuminate\Database\Eloquent\Collection
     {
         return Order::getAllOrders();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Сохранить новый заказ.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $order = Order::createOrder($request->all());
         return response()->json($order, 201);
     }
 
     /**
-     * Display the specified resource.
+     * Показать данные конкретного заказа.
      */
-    public function show(Order $order)
+    public function show(Order $order): Order
     {
         return $order->load('driver');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновить данные заказа.
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, Order $order): \Illuminate\Http\JsonResponse
     {
         $order->updateOrder($request->all());
         return response()->json($order, 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удалить заказ.
      */
-    public function destroy(Order $order)
+    public function destroy(Order $order): \Illuminate\Http\JsonResponse
     {
         $order->deleteOrder();
         return response()->json(null, 204);
